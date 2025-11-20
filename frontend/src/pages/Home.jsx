@@ -1,3 +1,5 @@
+import Blogs from '../components/Blogs'
+import CallToAction from '../components/CallToAction'
 import Category from '../components/Category'
 import Hero from '../components/Hero'
 import Products from '../components/Products'
@@ -10,6 +12,8 @@ const Home = () => {
       <Hero/>
       <Category/>
       <Products/>
+      <CallToAction/>
+      <Blogs/>
       
     </div>
   )
