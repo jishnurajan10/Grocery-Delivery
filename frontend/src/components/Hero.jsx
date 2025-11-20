@@ -21,7 +21,7 @@ const Hero = () => {
       title:"Fresh Groceries Delivered to Your Doorstep",
       img:assets.hero_img2,
       btn1:"Ordedr Now",
-      btn2:"Free Delivery"
+      btn2:"Free Delivery" 
     },
     {
       title:"Your One-Stop Online Shop for Daily Needs",

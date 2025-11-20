@@ -22,7 +22,7 @@ const App = () => {
   return (
   <>
   <Toaster/>
-    <div>
+    <div className='w-full mx-auto px-4 sm:px-6 lg:px-24'>
       {!adminPath && <Navbar />}
       <Routes>
         <Route path="/" element={<Home />} />
