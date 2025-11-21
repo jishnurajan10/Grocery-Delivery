@@ -14,6 +14,7 @@ import AddAddress from './pages/AddAddress'
 import MyOrder from './pages/MyOrder'
 import Navbar from './components/Navbar'
 import { Toaster } from 'react-hot-toast'
+import Footer from './components/Footer'
 
 
 const App = () => {
@@ -22,7 +23,7 @@ const App = () => {
   return (
   <>
   <Toaster/>
-    <div className='w-full mx-auto px-4 sm:px-6 lg:px-24'>
+    <div className='w-full mx-auto px-4 sm:px-6 lg:px-10 2xl:px-15'>
       {!adminPath && <Navbar />}
       <Routes>
         <Route path="/" element={<Home />} />
@@ -36,10 +37,9 @@ const App = () => {
         <Route path="/wishlist" element={<WishList />} />
         <Route path="/checkout" element={<CheckOut />} />
         <Route path="/add-address" element={<AddAddress />} />
-        <Route path="/my-order" element={<MyOrder />} />
-        
-        
+        <Route path="/my-order" element={<MyOrder />} />  
       </Routes>
+      {!adminPath && <Footer/>}
     </div>
   </>
   )
