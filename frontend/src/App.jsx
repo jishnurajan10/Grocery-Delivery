@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import Home from './pages/Home'
 import Shop from './pages/Shop'
@@ -15,11 +15,21 @@ import MyOrder from './pages/MyOrder'
 import Navbar from './components/Navbar'
 import { Toaster } from 'react-hot-toast'
 import Footer from './components/Footer'
+import { AppContext } from './context/AppContext'
+import AdminLayout from './pages/admin/AdminLayout'
+import AdminLogin from './pages/admin/AdminLogin'
+import Dashboard from './pages/admin/Dashboard'
+import AddCategory from './pages/admin/AddCategory'
+import AddProduct from './pages/admin/AddProduct'
+import AllCategory from './pages/admin/AllCategory'
+import AllProducts from './pages/admin/AllProducts'
+import Orders from './pages/admin/Orders'
 
 
 const App = () => {
 
   const adminPath = useLocation().pathname.includes("admin");
+  const {admin} = useContext(AppContext);
   return (
   <>
   <Toaster/>
@@ -38,6 +48,38 @@ const App = () => {
         <Route path="/checkout" element={<CheckOut />} />
         <Route path="/add-address" element={<AddAddress />} />
         <Route path="/my-order" element={<MyOrder />} />  
+
+        {/* admin routes */}
+        <Route
+         path = "/admin" 
+         element= {admin ? <AdminLayout/> : <AdminLogin/>}
+        >
+          <Route index element={admin ? <Dashboard/> : <AdminLogin/>}/>
+          <Route
+           path='add-category' 
+           element={admin ? <AddCategory/> : <AdminLogin/>}
+          />
+          <Route index element={admin ? <Dashboard/> : <AdminLogin/>}/>
+          <Route
+           path='add-product' 
+           element={admin ? <AddProduct/> : <AdminLogin/>}
+          />
+          <Route index element={admin ? <Dashboard/> : <AdminLogin/>}/>
+          <Route
+           path='categories' 
+           element={admin ? <AllCategory/> : <AdminLogin/>}
+          />
+          <Route index element={admin ? <Dashboard/> : <AdminLogin/>}/>
+          <Route
+           path='products' 
+           element={admin ? <AllProducts/> : <AdminLogin/>}
+          />
+          <Route index element={admin ? <Dashboard/> : <AdminLogin/>}/>
+          <Route
+           path='orders' 
+           element={admin ? <Orders/> : <AdminLogin/>}
+          />
+        </Route>
       </Routes>
       {!adminPath && <Footer/>}
     </div>
