@@ -54,7 +54,7 @@ const ProductDetails = () => {
         <div className="flex flex-col items-center space-y-4 w-full md:w-1/2">
           <div className="w-full max-w-2xl flex justify-center">
             <img
-              src={mainImage}
+              src={`http://localhost:4000/uploads/${mainImage}`}
               className="w-1/2 rounded-lg"
               alt="Main product"
             />
@@ -63,7 +63,7 @@ const ProductDetails = () => {
           <div className="grid grid-cols-4 gap-4 w-full max-w-2xl">
             {product.images?.map((img, index) => (
               <img
-                src={img}
+                src={`http://localhost:4000/uploads/${img}`}
                 key={index}
                 onClick={() => setMainImage(img)}
                 className='thumb rounded-lg md:h-24 h-14 object-cover cursor-pointer hover:opacity-80'

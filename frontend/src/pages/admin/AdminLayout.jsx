@@ -30,10 +30,19 @@ const AdminLayout = () => {
     }
     return location.pathname === path;
   };
-  const logout = () => {
-        toast.success("Logout Successfully");
+  const logout = async () => {
+    try {
+      const { data } = await axios.get("/api/admin/logout");
+      if (data.success) {
+        toast.success(data.message);
         setAdmin(false);
         navigate("/");
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
   return (
     <div className="flex h-screen bg-gray-100">

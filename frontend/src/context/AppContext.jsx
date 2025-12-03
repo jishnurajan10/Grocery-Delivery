@@ -6,27 +6,75 @@ import { toast } from "react-hot-toast";
 export const AppContext = createContext()
 const currency = import.meta.env.VITE_CURRENCY;
 
+import axios from "axios";
+axios.defaults.baseURL = import.meta.env.VITE_BASEURL;
+axios.defaults.withCredentials = true;
+
 const AppContextProvider = ({children}) => {
-    const navigate = useNavigate();
-    const [user, setUser] = useState(null);
-    const [admin, setAdmin] = useState(null);
-    const [loading, setLoading] = useState(false);
-    const [categoriesData, setCategoriesData] = useState([]);
-    const [productsData, setProductsData] = useState([]);
-    const [blogsData, setBlogsData] = useState([]);
+  const navigate = useNavigate();
+  const [user, setUser] = useState(null);
+  const [admin, setAdmin] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [categoriesData, setCategoriesData] = useState([]);
+  const [productsData, setProductsData] = useState([]);
+  const [blogsData, setBlogsData] = useState([]);
 
-    const [cart, setCart] = useState([]);
-    const [favorites, setFavorite] = useState([]);
+  const [cart, setCart] = useState([]);
+  const [favorites, setFavorite] = useState([]);
 
-    const fetchCategories = async() => {
-        setCategoriesData(categories);
-    };
-    const fetchProducts = async() => {
-        setProductsData(products);
-    };
-    const fetchBlogs = async() => {
-        setBlogsData(blogs);
-    };
+  const checkAuth = async () => {
+    try {
+      const { data } = await axios.get("/api/auth/is-auth");
+      if (data.success) {
+        setUser(true);
+      } else {
+        console.log(data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const checkAdmin = async () => {
+    try {
+      const { data } = await axios.get("/api/admin/is-admin");
+      if (data.success) {
+        setAdmin(true);
+      } else {
+        console.log(data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const fetchCategories = async () => {
+    try {
+      const { data } = await axios.get("/api/category/all");
+      if (data.success) {
+        setCategoriesData(data.categories);
+      } else {
+        console.log(data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const fetchProducts = async () => {
+    try {
+      const { data } = await axios.get("/api/product/all");
+      if (data.success) {
+        setProductsData(data.products);
+      } else {
+        console.log(data.message);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  const fetchBlogs = async() => {
+      setBlogsData(blogs);
+  };
 
   // add to cart
 
@@ -92,6 +140,8 @@ const AppContextProvider = ({children}) => {
         fetchCategories();
         fetchProducts();
         fetchBlogs();
+        checkAuth();
+        checkAdmin();
     }, []);
     const value = {
          navigate, 
@@ -111,7 +161,11 @@ const AppContextProvider = ({children}) => {
          admin,
          setAdmin,
          loading,
-         setLoading
+         setLoading,
+         axios,
+         fetchCategories,
+         fetchProducts,
+         
         };
 
     return (

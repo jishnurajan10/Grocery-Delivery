@@ -7,19 +7,27 @@ import toast from 'react-hot-toast';
 
 const Login = () => {
 
-  const { navigate, setUser } = useContext(AppContext);
+  const { navigate, setUser, axios } = useContext(AppContext);
   const [formData, setFormData] = useState({ email: '', password: ''});
 
   const handleChange = (e) => {
     setFormData({...formData, [e.target.name]: e.target.value });
   };
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
-    console.log(formData);
-    toast.success("Login Successfull");
-    setUser(true);
-    navigate('/');
+    try {
+      const { data } = await axios.post("/api/auth/login", formData);
+      if (data.success) {
+        toast.success(data.message);
+        setUser(true);
+        navigate("/");
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
   return (
     <div className="py-12 h-screen bg-[#0b482f]" 

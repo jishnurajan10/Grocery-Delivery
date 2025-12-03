@@ -21,9 +21,9 @@ import AdminLogin from './pages/admin/AdminLogin'
 import Dashboard from './pages/admin/Dashboard'
 import AddCategory from './pages/admin/AddCategory'
 import AddProduct from './pages/admin/AddProduct'
-import AllCategory from './pages/admin/AllCategory'
 import AllProducts from './pages/admin/AllProducts'
 import Orders from './pages/admin/Orders'
+import AllCategories from './pages/admin/AllCategories'
 
 
 const App = () => {
@@ -67,7 +67,7 @@ const App = () => {
           <Route index element={admin ? <Dashboard/> : <AdminLogin/>}/>
           <Route
            path='categories' 
-           element={admin ? <AllCategory/> : <AdminLogin/>}
+           element={admin ? <AllCategories/> : <AdminLogin/>}
           />
           <Route index element={admin ? <Dashboard/> : <AdminLogin/>}/>
           <Route

@@ -4,7 +4,7 @@ import {assets} from '../assets/assets.js'
 import { AppContext } from '../context/AppContext.jsx';
 
 const AddAddress = () => {
-  const { navigate, loading, setLoading } = useContext(AppContext);
+  const { navigate, loading, setLoading, axios } = useContext(AppContext);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -16,11 +16,22 @@ const AddAddress = () => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
-    console.log(formData);
-    toast.success("Address Added Successfully");
-    navigate("/checkout");    
+    try {
+      setLoading(true);
+      const { data } = await axios.post("/api/address/add", formData);
+      if (data.success) {
+        toast.success(data.message);
+        navigate("/checkout");
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error.response.data.message);
+    } finally {
+      setLoading(false);
+    }
   };
   return (
     <div
