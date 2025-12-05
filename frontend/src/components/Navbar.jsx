@@ -44,12 +44,12 @@ const Navbar = () => {
                 <Link to={"/shop"} className={isActive("/shop")}>Shop</Link>
                 <Link to={"/about"} className={isActive("/about")}>About</Link>
                 <Link to={"/contact"} className={isActive("/contact")}>Contact</Link>
-                <button
+                {/* <button
                   onClick={() => navigate("/admin")}
                   className="bg-primary text-white px-6 py-2 cursor-pointer rounded-full"
                 >
                   Admin Dashboard
-                </button>
+                </button> */}
 
                 <div onClick={() => navigate("/cart")} className="relative cursor-pointer">
                     <ShoppingBag className="w-5 h-5" />

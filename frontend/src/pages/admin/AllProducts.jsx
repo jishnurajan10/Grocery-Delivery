@@ -44,7 +44,7 @@ const AllProducts = () => {
                   />
                 </div>
                 <p>{item.name}</p>
-                <p>{item.category.name}</p>
+                <p>{item.category?.name || "No Category"}</p>
                 <p>
                   {currency}
                   {item.price}

@@ -26,7 +26,7 @@ const Category = () => {
         <div className='ml-1 w-20 flex border-b border-secondary border-2'></div>
       </div>
       <h2 className='mt-4 text-secondary font-extrabold text-3xl'>
-        Shop By Collection {" "}
+        Explore Our Products {" "}
       </h2>
       <Swiper
        module={{Autoplay}} 
